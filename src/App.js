@@ -7,19 +7,25 @@ function Header(props){
       </header>
   )
 }
-function Nav(){
+function Nav(props){
+  // let lis = [
+  //   <li><a href="1.html">html</a></li>,
+  //   <li><a href="2.html">css</a></li>,
+  //   <li><a href="3.html">js</a></li>
+  // ]
+  let lis = [];
+  for (let i = 0; i < props.data.length; i++){
+    lis.push(<li key={props.data[i].id}><a>{props.data[i].title}</a></li>);
+  }
   return(
     <nav>
         <ol>
-          <li><a href="1.html">html</a></li>
-          <li><a href="2.html">css</a></li>
-          <li><a href="3.html">js</a></li>
+          {lis}
         </ol>
     </nav>
   )
 }
 
-// 사용자 정의 태그!
 function Article(props){
   return(
     <article>
@@ -30,10 +36,14 @@ function Article(props){
 }
 
 function App() {
+  let topics = [
+    {id:1, title:'html', body:'html is...'},
+    {id:2, title:'css', body:'css is...'}
+  ]
   return (
     <div>
       <Header title="WEB"></Header>
-      <Nav></Nav>
+      <Nav data={topics}></Nav>
       <Article title="html" body="HTML is..."></Article>
       <Article title="css" body="CSS is..."></Article>
     </div>
