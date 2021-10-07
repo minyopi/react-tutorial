@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-function Header(){
+function Header(props){
   return(
-    <header>
-        <h1><a href="index.html">WEB</a></h1>
+      <header>
+        <h1><a href="index.html">{props.title}</a></h1>
       </header>
   )
 }
@@ -21,7 +21,6 @@ function Nav(){
 
 // 사용자 정의 태그!
 function Article(props){
-  console.log('props', props.title, props.body)
   return(
     <article>
           <h2>{props.title}</h2>
@@ -33,7 +32,7 @@ function Article(props){
 function App() {
   return (
     <div>
-      <Header></Header>
+      <Header title="WEB"></Header>
       <Nav></Nav>
       <Article title="html" body="HTML is..."></Article>
       <Article title="css" body="CSS is..."></Article>
