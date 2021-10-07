@@ -1,13 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-function HeaderTag(){
+function Header(){
   return(
     <header>
         <h1><a href="index.html">WEB</a></h1>
       </header>
   )
 }
-function NavTag(){
+function Nav(){
   return(
     <nav>
         <ol>
@@ -18,7 +18,7 @@ function NavTag(){
     </nav>
   )
 }
-function ArticleTag(){
+function Article(){
   return(
     <article>
           <h2>Welcome</h2>
@@ -30,9 +30,9 @@ function ArticleTag(){
 function App() {
   return (
     <div>
-      <HeaderTag></HeaderTag>
-      <NavTag></NavTag>
-      <ArticleTag></ArticleTag>
+      <Header></Header>
+      <Nav></Nav>
+      <Article></Article>
     </div>
   );
 }
