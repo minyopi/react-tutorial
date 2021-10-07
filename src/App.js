@@ -18,11 +18,14 @@ function Nav(){
     </nav>
   )
 }
-function Article(){
+
+// 사용자 정의 태그!
+function Article(props){
+  console.log('props', props.title, props.body)
   return(
     <article>
-          <h2>Welcome</h2>
-          Hello,WEB
+          <h2>{props.title}</h2>
+          {props.body}
     </article>
   )
 }
@@ -32,7 +35,8 @@ function App() {
     <div>
       <Header></Header>
       <Nav></Nav>
-      <Article></Article>
+      <Article title="html" body="HTML is..."></Article>
+      <Article title="css" body="CSS is..."></Article>
     </div>
   );
 }
