@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 function Header(props){
-  function aHandler(){
+  function aHandler(e){
+    e.preventDefault();
     props.onSelect();
   }
   return(
@@ -51,9 +52,13 @@ function App() {
   function onSelectHandler(){
     alert('Hi');
   }
+  function onSelectHandler2(){
+    alert('selected');
+  }
   return (
     <div>
       <Header title="WEB" onSelect={onSelectHandler}></Header>
+      <Header title="WEB" onSelect={onSelectHandler2}></Header>
       <Nav data={topics}></Nav>
       <Article title="html" body="HTML is..."></Article>
     </div>
