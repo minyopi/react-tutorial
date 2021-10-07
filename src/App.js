@@ -15,7 +15,12 @@ function Nav(props){
   // ]
   let lis = [];
   for (let i = 0; i < props.data.length; i++){
-    lis.push(<li key={props.data[i].id}><a>{props.data[i].title}</a></li>);
+    let item = props.data[i];
+    lis.push(
+      <li key={item.id}>
+        <a href={item.id+".html"}>{item.title}</a>
+      </li>
+      );
   }
   return(
     <nav>
