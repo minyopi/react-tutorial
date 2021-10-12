@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
+
+
 function Article(props){
   console.log('Article');
   return (
@@ -10,6 +12,7 @@ function Article(props){
     </article> 
   )
 }
+
 function Nav(props){
   console.log('Nav');
   var lis = [];
@@ -35,6 +38,7 @@ function Nav(props){
     </nav>
   );
 }
+
 function Header(props){
   console.log('Header');
   function aHandler(ev){
@@ -45,6 +49,7 @@ function Header(props){
     <header><h1><a href="index.html" onClick={aHandler}>{props.title}</a></h1></header>
   )
 } 
+
 function Create(props){
   function submitHandler(ev){
     ev.preventDefault();
@@ -63,6 +68,7 @@ function Create(props){
       </article>
   )
 }
+
 function Control(props){
   return (
     <ul>
@@ -72,6 +78,12 @@ function Control(props){
           props.onChangeMode('CREATE');
         }
       }>Create</a></li>
+      <li><a href="update.html" onClick={
+        function(ev){
+            ev.preventDefault();
+            props.onChangeMode('UPDATE')
+        }
+      }>Update</a></li>
       <li>
         <form onSubmit={
           function(ev){
@@ -85,6 +97,9 @@ function Control(props){
     </ul>
   )
 }
+
+
+
 function App() {
   
   var [id, setId] = useState(2);
@@ -126,6 +141,8 @@ function App() {
       setNextId(nextId+1);
     }
     articleComp = <Create onCreate={createHandler}></Create>
+  } else if(mode === 'UPDATE') {
+      articleComp = <h2>Update</h2>
   }
   function changeHandler(_mode){
     debugger;
@@ -142,7 +159,9 @@ function App() {
       }
       setTopics(newTopics);
       setMode('WELCOME');
-    } else {
+    } else if (_mode === 'UPDATE'){
+      setMode('UPDATE')
+    } {
       setMode(_mode);
     }
   }
