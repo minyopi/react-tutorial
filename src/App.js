@@ -70,6 +70,8 @@ function Create(props){
 }
 
 function UpDate(props){
+  var [title,setTitle] = useState(props.data.title);
+  var [body, setBody] = useState(props.data.body);
   function submitHandler(ev){
     ev.preventDefault();
     var title = ev.target.title.value;
@@ -80,8 +82,16 @@ function UpDate(props){
     <article>
         <h1>Update</h1>
         <form onSubmit={submitHandler}>
-          <p><input type="text" name="title" /></p>
-          <p><textarea name="body" ></textarea></p>
+          <p><input type="text" name="title" value={title} onChange={
+            function(ev){
+              setTitle(ev.target.value);
+            }
+          }/></p>
+          <p><textarea name="body" value={body} onChange={
+              function(ev){
+                  setBody(ev.target.value);
+              }
+          }></textarea></p>
           <p><input type="submit" /></p>
         </form>
       </article>
@@ -164,7 +174,14 @@ function App() {
     function updateHandler(title, body){
       alert(title+body);
     }
-    articleComp = <UpDate onUpdate={updateHandler}></UpDate>
+    var data;
+    for(var i = 0; i<topics.length; i++){
+        var topic = topics[i];
+        if(topic.id === id){
+            data = topic;
+        }
+    }
+    articleComp = <UpDate onUpdate={updateHandler} data={data}></UpDate>
   }
   function changeHandler(_mode){
     debugger;
