@@ -172,7 +172,20 @@ function App() {
     articleComp = <Create onCreate={createHandler}></Create>
   } else if(mode === 'UPDATE') {
     function updateHandler(title, body){
-      alert(title+body);
+      //id에 해당하는 topic의 값을 새로운 title, body를 교체한다.
+      var newTopics = [];
+      for(var i = 0; i < topics.length; i++){
+          var topic = topics[i];
+          if(topic.id === id){
+            newTopics.push({id: id, title:title, body:body});
+          } else {
+            newTopics.push(topic);
+          }
+      }
+      //새로운 topics의 값으로 state를 변경한다.
+      setTopics(newTopics);
+      //mode를 read로 변경한다.
+      setMode('READ');
     }
     var data;
     for(var i = 0; i<topics.length; i++){
