@@ -61,8 +61,27 @@ function Create(props){
     <article>
         <h1>Create</h1>
         <form onSubmit={submitHandler}>
-          <p><input type="text" name="title" defaultValue="a"/></p>
-          <p><textarea name="body" defaultValue="b"></textarea></p>
+          <p><input type="text" name="title" /></p>
+          <p><textarea name="body" ></textarea></p>
+          <p><input type="submit" /></p>
+        </form>
+      </article>
+  )
+}
+
+function UpDate(props){
+  function submitHandler(ev){
+    ev.preventDefault();
+    var title = ev.target.title.value;
+    var body = ev.target.body.value;
+    props.onUpdate(title,body);
+  }
+  return (
+    <article>
+        <h1>Update</h1>
+        <form onSubmit={submitHandler}>
+          <p><input type="text" name="title" /></p>
+          <p><textarea name="body" ></textarea></p>
           <p><input type="submit" /></p>
         </form>
       </article>
@@ -142,7 +161,10 @@ function App() {
     }
     articleComp = <Create onCreate={createHandler}></Create>
   } else if(mode === 'UPDATE') {
-      articleComp = <h2>Update</h2>
+    function updateHandler(title, body){
+      alert(title+body);
+    }
+    articleComp = <UpDate onUpdate={updateHandler}></UpDate>
   }
   function changeHandler(_mode){
     debugger;
@@ -161,7 +183,7 @@ function App() {
       setMode('WELCOME');
     } else if (_mode === 'UPDATE'){
       setMode('UPDATE')
-    } {
+    } else {
       setMode(_mode);
     }
   }
