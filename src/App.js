@@ -11,7 +11,8 @@ import {BrowserRouter as Router,
         Route,
         Switch,
         Link,
-        useHistory
+        useHistory,
+        useParams
       } from 'react-router-dom';
 
 
@@ -35,18 +36,7 @@ function App() {
     }
   }
   var articleComp = <Article title="Welcome" body="Welcome is ..."></Article>;
-  if(mode === 'READ'){
-    var title, body;
-    for(var i=0; i<topics.length; i++){
-      var item = topics[i];
-      if(item.id === id){
-        title = item.title;
-        body = item.body;
-      }
-    }
-    articleComp = <Article title={title} body={body}></Article>
-  } else if(mode === 'CREATE') {
-  } else if(mode === 'UPDATE') {
+  if(mode === 'UPDATE') {
     function updateHandler(title, body){
       //id에 해당하는 topic의 값을 새로운 title, body를 교체한다.
       var newTopics = [];
@@ -113,11 +103,26 @@ function App() {
         <Route path="/create">
           <Create onCreate={createHandler}></Create>
         </Route>
-        <Route path="/read/:id" >Read</Route>
+        <Route path="/read/:id" >
+          <Read topics={topics}></Read>
+        </Route>
         <Route path="/update/:id">Update</Route>
         <Control onChangeMode={changeHandler}></Control>
     </div>
   );
+}
+function Read(props){
+  var params = useParams();
+  var id = Number(params.id);
+  var title, body;
+  for(var i=0; i<props.topics.length; i++){
+    var topic = props.topics[i];
+    if(topic.id === id){
+      title = topic.title;
+      body = topic.body;
+    }
+  }
+  return <Article title={title} body={body}></Article>
 }
 
 export default App;
