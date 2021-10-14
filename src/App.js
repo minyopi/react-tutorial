@@ -10,13 +10,14 @@ import { Control } from './components/Control';
 import {BrowserRouter as Router,
         Route,
         Switch,
-        Link
+        Link,
+        useHistory
       } from 'react-router-dom';
 
 
 
 function App() {
-  
+  var history = useHistory();
   var [id, setId] = useState(2);
   var [mode,setMode] = useState('WELCOME');
   var [nextId,setNextId] = useState(3);
@@ -45,17 +46,6 @@ function App() {
     }
     articleComp = <Article title={title} body={body}></Article>
   } else if(mode === 'CREATE') {
-    function createHandler(_title,_body){
-      // topics.push({title:_title, body:_body});
-      // setTopics(topics);
-      var newTopics = [...topics];
-      newTopics.push({id:nextId, title:_title, body:_body});
-      setTopics(newTopics);
-      setMode('READ');
-      setId(nextId);
-      setNextId(nextId+1);
-    }
-    articleComp = <Create onCreate={createHandler}></Create>
   } else if(mode === 'UPDATE') {
     function updateHandler(title, body){
       //id에 해당하는 topic의 값을 새로운 title, body를 교체한다.
@@ -103,17 +93,29 @@ function App() {
       setMode(_mode);
     }
   }
+  function createHandler(_title,_body){
+    // topics.push({title:_title, body:_body});
+    // setTopics(topics);
+    var newTopics = [...topics];
+    newTopics.push({id:nextId, title:_title, body:_body});
+    setTopics(newTopics);
+    history.push('/read/'+nextId);
+    setNextId(nextId+1);
+  }
+
   return (
     <div>
-      <Router>
         <Header title="html" ></Header>
         <Nav src={topics}></Nav>
-        <Route exact path="/">Welcome</Route>
-        <Route path="/create">Create</Route>
+        <Route exact path="/">
+          <Article title="Welcome" body="Hello, WEB"></Article>
+        </Route>
+        <Route path="/create">
+          <Create onCreate={createHandler}></Create>
+        </Route>
         <Route path="/read/:id" >Read</Route>
         <Route path="/update/:id">Update</Route>
         <Control onChangeMode={changeHandler}></Control>
-      </Router>
     </div>
   );
 }
