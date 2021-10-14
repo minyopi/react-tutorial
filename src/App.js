@@ -7,6 +7,12 @@ import { Header } from './components/Header';
 import { Create } from './components/Create';
 import { UpDate } from './components/UpDate';
 import { Control } from './components/Control';
+import {BrowserRouter as Router,
+        Route,
+        Switch,
+        Link
+      } from 'react-router-dom';
+
 
 
 function App() {
@@ -99,10 +105,15 @@ function App() {
   }
   return (
     <div>
-      <Header title="html" onSelect={selectHandler}></Header>
-      <Nav src={topics} onSelect={selectHandler}></Nav>
-      {articleComp}
-      <Control onChangeMode={changeHandler}></Control>
+      <Router>
+        <Header title="html" onSelect={selectHandler}></Header>
+        <Nav src={topics} onSelect={selectHandler}></Nav>
+        <Route exact path="/">Welcome</Route>
+        <Route path="/create">Create</Route>
+        <Route path="/read/:id" >Read</Route>
+        <Route path="/update:id">Update</Route>
+        <Control onChangeMode={changeHandler}></Control>
+      </Router>
     </div>
   );
 }
