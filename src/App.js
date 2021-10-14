@@ -106,12 +106,12 @@ function App() {
   return (
     <div>
       <Router>
-        <Header title="html" onSelect={selectHandler}></Header>
-        <Nav src={topics} onSelect={selectHandler}></Nav>
+        <Header title="html" ></Header>
+        <Nav src={topics}></Nav>
         <Route exact path="/">Welcome</Route>
         <Route path="/create">Create</Route>
         <Route path="/read/:id" >Read</Route>
-        <Route path="/update:id">Update</Route>
+        <Route path="/update/:id">Update</Route>
         <Control onChangeMode={changeHandler}></Control>
       </Router>
     </div>
