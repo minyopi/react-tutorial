@@ -15,28 +15,28 @@ import {BrowserRouter as Router,
         useParams
       } from 'react-router-dom';
 
-
+function Read(props){
+  var params = useParams();
+  var id = Number(params.id);
+  var title, body;
+  for(var i=0; i<props.topics.length; i++){
+    var topic = props.topics[i];
+    if(topic.id === id){
+      title = topic.title;
+      body = topic.body;
+    }
+  }
+  return <Article title={title} body={body}></Article>
+}
 
 function App() {
   var history = useHistory();
-  var [id, setId] = useState(2);
-  var [mode,setMode] = useState('WELCOME');
   var [nextId,setNextId] = useState(3);
   var [topics, setTopics] = useState([
     {id:1, title:'html', body:'html is ..'},
     {id:2, title:'css', body:'css is ..'}
   ]);
-  console.log('run App', id);
-  function selectHandler(_id){
-    if(_id===undefined){
-      setMode('WELCOME');
-    } else {
-      setId(_id);
-      setMode('READ');
-    }
-  }
-  var articleComp = <Article title="Welcome" body="Welcome is ..."></Article>;
-
+  
     function updateHandler(_id, _title, _body){
       //id에 해당하는 topic의 값을 새로운 title, body를 교체한다.
       var newTopics = [];
@@ -96,19 +96,6 @@ function App() {
         <Control onDelete={deleteHandler}></Control>
     </div>
   );
-}
-function Read(props){
-  var params = useParams();
-  var id = Number(params.id);
-  var title, body;
-  for(var i=0; i<props.topics.length; i++){
-    var topic = props.topics[i];
-    if(topic.id === id){
-      title = topic.title;
-      body = topic.body;
-    }
-  }
-  return <Article title={title} body={body}></Article>
 }
 
 export default App;
