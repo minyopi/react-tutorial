@@ -36,14 +36,14 @@ function App() {
     }
   }
   var articleComp = <Article title="Welcome" body="Welcome is ..."></Article>;
-  if(mode === 'UPDATE') {
-    function updateHandler(title, body){
+
+    function updateHandler(_id, _title, _body){
       //id에 해당하는 topic의 값을 새로운 title, body를 교체한다.
       var newTopics = [];
       for(var i = 0; i < topics.length; i++){
           var topic = topics[i];
-          if(topic.id === id){
-            newTopics.push({id: id, title:title, body:body});
+          if(topic.id === _id){
+            newTopics.push({id: _id, title: _title, body: _body});
           } else {
             newTopics.push(topic);
           }
@@ -51,17 +51,9 @@ function App() {
       //새로운 topics의 값으로 state를 변경한다.
       setTopics(newTopics);
       //mode를 read로 변경한다.
-      setMode('READ');
+      history.push('/read/'+_id);
     }
-    var data;
-    for(var i = 0; i<topics.length; i++){
-        var topic = topics[i];
-        if(topic.id === id){
-            data = topic;
-        }
-    }
-    articleComp = <UpDate onUpdate={updateHandler} data={data}></UpDate>
-  }
+
   function deleteHandler(id){
       var newTopics = [];
       for(var i=0; i<topics.length; i++){
@@ -98,7 +90,9 @@ function App() {
         <Route path="/read/:id" >
           <Read topics={topics}></Read>
         </Route>
-        <Route path="/update/:id">Update</Route>
+        <Route path="/update/:id">
+          <UpDate onUpdate={updateHandler} topics={topics}></UpDate>
+        </Route>
         <Control onDelete={deleteHandler}></Control>
     </div>
   );
