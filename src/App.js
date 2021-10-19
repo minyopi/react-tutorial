@@ -62,11 +62,7 @@ function App() {
     }
     articleComp = <UpDate onUpdate={updateHandler} data={data}></UpDate>
   }
-  function changeHandler(_mode){
-    debugger;
-    console.log('id', id);
-    if(_mode === 'DELETE'){
-      // 삭제한다. 
+  function deleteHandler(id){
       var newTopics = [];
       for(var i=0; i<topics.length; i++){
         if(topics[i].id === id){
@@ -76,13 +72,9 @@ function App() {
         }
       }
       setTopics(newTopics);
-      setMode('WELCOME');
-    } else if (_mode === 'UPDATE'){
-      setMode('UPDATE')
-    } else {
-      setMode(_mode);
+      history.push('/');
     }
-  }
+
   function createHandler(_title,_body){
     // topics.push({title:_title, body:_body});
     // setTopics(topics);
@@ -107,7 +99,7 @@ function App() {
           <Read topics={topics}></Read>
         </Route>
         <Route path="/update/:id">Update</Route>
-        <Control onChangeMode={changeHandler}></Control>
+        <Control onDelete={deleteHandler}></Control>
     </div>
   );
 }
